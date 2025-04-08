@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * con sus datos personales 
  * y su estado en la franquicia (baja y categoria)
  */
+@XmlRootElement(name="empleados")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Empleado {
 	
 	private String DNI;
@@ -89,6 +91,22 @@ public class Empleado {
 	public double sueldo() {
 		double sueldo = categoria.getSueldoBase();
 		return sueldo;
+	}
+	
+	/**
+	 * Retorna el sueldo del empleado.
+	 */
+	
+	public double calculaSueldo() {
+		
+		double sueldo = sueldo();
+		
+		if (totalVentas >= 1000) {
+			sueldo += 100;
+		}
+		
+		return sueldo;
+		
 	}
 
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ventas>
+	<tienda idTienda="Tienda A">
+		<venta empleado="11111111A" importe="35"/>
+		<venta empleado="11111111B" importe="50"/>
+		<venta empleado="11111111A" importe="30"/>
+		<venta empleado="11111111B" importe="135"/>
+		<venta empleado="11111111B" importe="15"/>
+		<venta empleado="11111111A" importe="25"/>
+	</tienda>
+	<tienda idTienda="Tienda B">
+		<venta empleado="11111111C" importe="31"/>
+		<venta empleado="11111111C" importe="68"/>
+		<venta empleado="11111111C" importe="300"/>
+		<venta empleado="11111111C" importe="28"/>
+	</tienda>
+	<tienda idTienda="Tienda C">
+		<venta empleado="11111111D" importe="35"/>
+		<venta empleado="11111111D" importe="51"/>
+		<venta empleado="11111111D" importe="45"/>
+		<venta empleado="11111111D" importe="15"/>
+		<venta empleado="11111111D" importe="150"/>
+		<venta empleado="11111111D" importe="25"/>
+	</tienda>
+</ventas>

@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Clase que representa una tienda de la franquicia.
  * Almacena sus datos y su lista de empleados
  * El nombre de la tienda es unico en la franquicia
  */
 @SuppressWarnings("serial")
+@XmlRootElement(name="tiendas")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Tienda implements Serializable {
 	
 	// Primary key en BBDD (autogenerada)

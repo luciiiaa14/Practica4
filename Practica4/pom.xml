@@ -5,10 +5,10 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-  	<module>SupermercadosCommon</module>
   	<module>SupermercadoBusiness</module>
   	<module>SupermercadoCommon</module>
   	<module>SupermercadoDAO</module>
   	<module>SupermercadoService</module>
+  	<module>SupermercadoMain</module>
   </modules>
 </project>

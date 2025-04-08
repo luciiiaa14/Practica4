@@ -1,5 +1,11 @@
 package es.unican.ss.common;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="direccion")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Direccion {
 	
 	private String calle;

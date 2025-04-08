@@ -9,8 +9,10 @@ import es.unican.ss.common.DataAccessException;
 import es.unican.ss.common.Direccion;
 import es.unican.ss.common.Empleado;
 import es.unican.ss.common.Tienda;
+import es.unican.ss.dao.EmpleadosDAO;
 import es.unican.ss.dao.IEmpleadosDAO;
 import es.unican.ss.dao.ITiendasDAO;
+import es.unican.ss.dao.TiendasDAO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -28,8 +30,8 @@ import jakarta.ws.rs.core.UriInfo;
 public class TiendasController {
 
 	//Especificación de las DAO
-	private IEmpleadosDAO daoEmpleados;
-	private ITiendasDAO daoTiendas;
+	private IEmpleadosDAO daoEmpleados = new EmpleadosDAO();
+	private ITiendasDAO daoTiendas = new TiendasDAO();
 
 	//LISTADO DE TIENDAS
 	@GET
@@ -205,7 +207,7 @@ public class TiendasController {
 		}
 
 		double totalVentas = empleado.getTotalVentas() + ventasMensual;
-		daoEmpleados.empleado(dni).setTotalVentas(totalVentas);
+		empleado.setTotalVentas(totalVentas);
 		daoEmpleados.modificarEmpleado(empleado);
 
 		uri = uriInfo.getAbsolutePathBuilder().build();
@@ -249,20 +251,16 @@ public class TiendasController {
 		Response.ResponseBuilder builder = null;
 		Empleado empleado = null;
 
-		/*List<Empleado> empleados = daoEmpleados.empleados();
-		if (empleados == null) {
+		empleado = daoEmpleados.empleado(dni);
+		if (empleado == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 		
-		for (Empleado e : empleados) {
-			if (e.getTotalVentas() > ventasMejor) {
-				ventasMejor =e.getTotalVentas();
-				empleado = e;
-			}
-			
-		}*/
-
-		builder = Response.ok(empleado);
+		double sueldo = empleado.calculaSueldo();
+		
+		
+		
+		builder = Response.ok(sueldo);
 		return builder.build();
 	}
 
