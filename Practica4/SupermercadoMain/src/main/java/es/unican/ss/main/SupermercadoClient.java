@@ -66,20 +66,54 @@ public class SupermercadoClient {
 			e1.printStackTrace();
 		}
 		
-		//Cambio el importe de los empleados.
+		//Obtengo el sueldo de los clientes para después hacer el put.
+		Map<String, Map<String, Double>> ventasAgrupadas = new HashMap<>();
+		
+		//Recorro las tiendas.
 		for (TiendaVenta t : ventas.getTiendas()) {
+			String nombreTienda = t.getIdTienda();
+			
+			//Si no hay esta tienda la creamos.
+			if (!ventasAgrupadas.containsKey(nombreTienda)) {
+				ventasAgrupadas.put(nombreTienda, new HashMap<>());
+			}
+			
+			//Obtengo las ventas de los empleados en la tienda
+			Map<String, Double> ventasPorEmpleados = ventasAgrupadas.get(nombreTienda);
+			
 			for (Venta v : t.getVentas()) {
-				nombre = t.getIdTienda();
 				dni = v.getDni();
 				ventasMensual = v.getVentasMensual();
-				resource = base.path("/tiendas/" + nombre + "/empleados/" + dni + "/ventasMensual");
-				invocation = resource.request(MediaType.APPLICATION_JSON);
-				respuesta = invocation.put(Entity.json(ventasMensual));
-
-				procesaRespuesta(respuesta);
+				
+				//Compruebo si ya existia el empleado y si no le creo.
+				 if (ventasPorEmpleados.containsKey(dni)) {
+					 double acumulado = ventasPorEmpleados.get(dni);
+			         ventasPorEmpleados.put(dni, acumulado + ventasMensual);
+			     } else {
+			            ventasPorEmpleados.put(dni, ventasMensual);
+			     }
+				
 				
 			}
+			
 		}
+		
+		//Actualizamos las ventas de los empleados.
+		for (String tienda : ventasAgrupadas.keySet()) {
+		    Map<String, Double> ventasEmpleados = ventasAgrupadas.get(tienda);
+		    
+		    for (String dniEmpl : ventasEmpleados.keySet()) {
+		        double totalVentas = ventasEmpleados.get(dniEmpl);
+
+		        resource = base.path("/tiendas/" + tienda + "/empleados/" + dniEmpl + "/ventasMensual");
+		        invocation = resource.request(MediaType.APPLICATION_JSON);
+		        respuesta = invocation.put(Entity.json(totalVentas));
+
+		        procesaRespuesta(respuesta);
+		    }
+		}
+
+		
 		
 		
 		//Cerramos el cliente.
