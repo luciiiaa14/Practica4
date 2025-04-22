@@ -75,7 +75,7 @@ public class SupermercadoClient {
 			
 			//Si no hay esta tienda la creamos.
 			if (!ventasAgrupadas.containsKey(nombreTienda)) {
-				ventasAgrupadas.put(nombreTienda, new HashMap<>());
+				ventasAgrupadas.put(nombreTienda, new HashMap<String, Double>());
 			}
 			
 			//Obtengo las ventas de los empleados en la tienda
